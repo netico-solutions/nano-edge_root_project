@@ -1,4 +1,4 @@
-# nano-edge_root_project
+# Nano-Edge Root project
 
 This is a root project containing everything that you need to setup development 
 environment for Nano-Edge devices.
@@ -30,5 +30,9 @@ wait until it starts and then
 
     vagrant ssh
 
+To stop the running development machine you can do:
 
+    vagrant halt
+
+Also, see Vagrant help for suspending and resuming the development machine.
 

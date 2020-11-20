@@ -10,7 +10,7 @@ RELEASE='v1.0'
 ### Change here for more memory/cores ###
 VM_MEMORY=4096
 VM_CORES=4
-VM_NAME="Netico Linux Distro #{RELEASE}"
+VM_NAME="Netico Debian-var #{RELEASE}"
 
 Vagrant.configure('2') do |config|
 	config.vm.box = 'ubuntu/bionic64'
@@ -64,7 +64,9 @@ Vagrant.configure('2') do |config|
 		update-locale LC_ALL=C"
 
 	config.vm.provision 'shell', privileged: false, inline:
-		"echo 'Downloading and extracting Linux #{RELEASE}'
-		git clone https://github.com/varigit/debian-var.git -b debian_stretch_mx6_var01 var_som_mx6_debian"
+		"echo 'Downloading #{VM_NAME} repositories. This may take a while...'
+        git clone https://github.com/netico-solutions/debian-var.git -b netico-nano-edge
+        echo 'Development machine setup is finished.'
+        echo 'Now you can execute: vagrant ssh'"
 
 end
