@@ -30,5 +30,9 @@ wait until it starts and then
 
     vagrant ssh
 
+To stop the running development machine you can do:
 
+    vagrant halt
+
+Also, see Vagrant help for suspending and resuming the development machine.
 
