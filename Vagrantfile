@@ -4,16 +4,18 @@
 #
 ################################################################################
 
-# Buildroot version to use
-RELEASE='v1.0'
-
-### Change here for more memory/cores ###
+### Change here for more memory/cores/disk size ###
 VM_MEMORY=4096
 VM_CORES=4
+VM_DISK_SIZE='51200MB'
+
+# Version declaration
+RELEASE='v1.0'
 VM_NAME="Netico Debian-var #{RELEASE}"
 
 Vagrant.configure('2') do |config|
 	config.vm.box = 'ubuntu/bionic64'
+	config.disksize.size = VM_DISK_SIZE
 
 	config.vm.provider :vmware_fusion do |v, override|
 		v.vmx['memsize'] = VM_MEMORY
@@ -24,7 +26,7 @@ Vagrant.configure('2') do |config|
 		v.memory = VM_MEMORY
 		v.cpus = VM_CORES
 
-		required_plugins = %w( vagrant-vbguest )
+		required_plugins = %w( vagrant-vbguest vagrant-disksize )
 		required_plugins.each do |plugin|
 		  system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
 		end
@@ -48,8 +50,8 @@ Vagrant.configure('2') do |config|
 		apt-get -y upgrade
 		apt-get purge -q -y snapd lxcfs lxd ubuntu-core-launcher snap-confine
 		apt-get -q -y install build-essential libncurses5-dev \
-			git tig vim bzr cvs mercurial subversion libc6:i386 unzip bc \
-			binfmt-support qemu qemu-user-static debootstrap kpartx \
+            git tig vim bzr cvs mercurial subversion unzip bc \
+            binfmt-support qemu qemu-user-static debootstrap kpartx \
             lvm2 dosfstools gpart binutils bison git lib32ncurses5-dev \
             libssl-dev python-m2crypto gawk wget git-core diffstat unzip \
             texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev \
@@ -58,7 +60,7 @@ Vagrant.configure('2') do |config|
             python-pysqlite2 help2man make gcc g++ desktop-file-utils \
             libgl1-mesa-dev libglu1-mesa-dev mercurial automake groff curl \
             lzop asciidoc u-boot-tools mtd-utils device-tree-compiler flex \
-            debootstrap qemu-arm-static
+            debootstrap qemu-user-static qemu-system-arm
 		apt-get -q -y autoremove
 		apt-get -q -y clean
 		update-locale LC_ALL=C"

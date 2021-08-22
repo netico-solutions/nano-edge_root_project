@@ -19,6 +19,16 @@ Terminology
 
 2. Install Vagrant using your distro package manager. More details are here:
    https://www.vagrantup.com
+   
+3. Navigate to project folder containing the Vagrant file. Modify the file 
+   `Vagrantfile` to suit you needs. Have a look at the variables: `VM_CORES`, 
+   `VM_MEMORY` and `VM_DISK_SIZE`. 
+   
+4. Navigate to project folder containing the Vagrant file. Execute
+
+    vagrant box update
+    vagrant plugin install vagrant-vbguest 
+    vagrant plugin install vagrant-disksize
 
 ## Starting and stopping the Development machine
 
@@ -26,7 +36,10 @@ Navigate to project folder containing the Vagrant file. Execute:
     
     vagrant up
 
-wait until it starts and then
+Wait until it starts. The first boot may take a while because it sets up the
+development environment and downloads the code source. Once the machine is
+finished setting up the development environment execute the following command
+to access it:
 
     vagrant ssh
 
